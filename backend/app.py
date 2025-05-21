@@ -24,12 +24,16 @@ app.register_blueprint(customers_bp, url_prefix='/customers')
 app.register_blueprint(vendors_bp, url_prefix='/vendors')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
-@app.route('/')
-def index():
-    return send_from_directory(os.path.join(app.static_folder), 'index.html')
+
+# serve index.html when route not found
+
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def serve_static(path):
-    return send_from_directory(os.path.join(app.static_folder), path)
+def serve_frontend(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
