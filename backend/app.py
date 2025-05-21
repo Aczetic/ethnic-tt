@@ -1,7 +1,6 @@
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'backend')))
+sys.path.append(os.path.dirname(__file__))  # Adds backend/ to the path
 
 from flask import Flask, send_from_directory
 from flask import Flask, request, jsonify
