@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  console.log("sdfdf");
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    role: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -24,13 +25,14 @@ const Signup = () => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = 'First name is required';
-    if (!formData.lastName) newErrors.lastName = 'Last name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.password) newErrors.password = 'Password is required';
-    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    if (!formData.role) newErrors.role = 'Please select a role';
-    
+    if (!formData.firstName) newErrors.firstName = "First name is required";
+    if (!formData.lastName) newErrors.lastName = "Last name is required";
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.password) newErrors.password = "Password is required";
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+    if (!formData.role) newErrors.role = "Please select a role";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -40,17 +42,17 @@ const Signup = () => {
     if (!validate()) return;
 
     try {
-      await axios.post('http://localhost:5000/api/signup', {
+      await axios.post("http://localhost:5000/api/signup", {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
-        role: formData.role
+        role: formData.role,
       });
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
-      console.error('Signup error:', error.response?.data);
-      setErrors({ submit: error.response?.data.error || 'Signup failed' });
+      console.error("Signup error:", error.response?.data);
+      setErrors({ submit: error.response?.data.error || "Signup failed" });
     }
   };
 
@@ -68,33 +70,37 @@ const Signup = () => {
           <div className="row">
             <div className="form-group" style={{ flex: 1 }}>
               <label>First name</label>
-              <input 
-                type="text" 
-                name="firstName" 
-                placeholder="Enter First Name" 
+              <input
+                type="text"
+                name="firstName"
+                placeholder="Enter First Name"
                 value={formData.firstName}
                 onChange={handleChange}
               />
-              {errors.firstName && <div className="error">{errors.firstName}</div>}
+              {errors.firstName && (
+                <div className="error">{errors.firstName}</div>
+              )}
             </div>
             <div className="form-group" style={{ flex: 1 }}>
               <label>Last Name</label>
-              <input 
-                type="text" 
-                name="lastName" 
-                placeholder="Enter Last Name" 
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Enter Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
               />
-              {errors.lastName && <div className="error">{errors.lastName}</div>}
+              {errors.lastName && (
+                <div className="error">{errors.lastName}</div>
+              )}
             </div>
           </div>
           <div className="form-group">
             <label>Email Address</label>
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Enter your email" 
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
             />
@@ -102,10 +108,10 @@ const Signup = () => {
           </div>
           <div className="form-group">
             <label>Create Password</label>
-            <input 
-              type="password" 
-              name="password" 
-              placeholder="Create Password" 
+            <input
+              type="password"
+              name="password"
+              placeholder="Create Password"
               value={formData.password}
               onChange={handleChange}
             />
@@ -113,36 +119,40 @@ const Signup = () => {
           </div>
           <div className="form-group">
             <label>Re-enter Password</label>
-            <input 
-              type="password" 
-              name="confirmPassword" 
-              placeholder="Confirm Password" 
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={handleChange}
             />
-            {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
+            {errors.confirmPassword && (
+              <div className="error">{errors.confirmPassword}</div>
+            )}
           </div>
           <div className="form-group">
             <label>Sign up as</label>
             <div className="role-selection">
-              <button 
-                type="button" 
-                className={formData.role === 'vendor' ? 'hovered' : ''}
-                onClick={() => handleRoleSelect('vendor')}
+              <button
+                type="button"
+                className={formData.role === "vendor" ? "hovered" : ""}
+                onClick={() => handleRoleSelect("vendor")}
               >
                 Vendor
               </button>
-              <button 
-                type="button" 
-                className={formData.role === 'customer' ? 'hovered' : ''}
-                onClick={() => handleRoleSelect('customer')}
+              <button
+                type="button"
+                className={formData.role === "customer" ? "hovered" : ""}
+                onClick={() => handleRoleSelect("customer")}
               >
                 Customer
               </button>
             </div>
             {errors.role && <div className="error">{errors.role}</div>}
           </div>
-          <button type="submit" className="signup-btn">Sign up</button>
+          <button type="submit" className="signup-btn">
+            Sign up
+          </button>
           <div className="login-link">
             Already have an account? <a href="/login">LOG IN</a>
           </div>
