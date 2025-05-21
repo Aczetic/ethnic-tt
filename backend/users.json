@@ -1,0 +1,9 @@
+[
+  {
+    "firstName": "Piku",
+    "lastName": "Singh",
+    "email": "hello@hello.com",
+    "password": "scrypt:32768:8:1$OdofY7DdCjFea7pU$cb5c650ba4af0e2ea358662a85e029fb6d8a97d01f2c62fdd8120df8e23d4a118198fcfb62338439c4c70414da437e869128f31b28d223f0ad8a0a988de51c6c",
+    "role": "vendor"
+  }
+]
