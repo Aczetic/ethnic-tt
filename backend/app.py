@@ -13,7 +13,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 
 # app = Flask(__name__)
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
+
 
 CORS(app)
 
@@ -23,9 +24,12 @@ app.register_blueprint(customers_bp, url_prefix='/customers')
 app.register_blueprint(vendors_bp, url_prefix='/vendors')
 app.register_blueprint(admin_bp, url_prefix='/admin')
 
-# @app.route('/')
-# def home():
-#     return "Ethnic Marketplace Backend is running!"
+@app.route('/')
+def index():
+    return send_from_directory(os.path.join(app.static_folder), 'index.html')
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(os.path.join(app.static_folder), path)
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
